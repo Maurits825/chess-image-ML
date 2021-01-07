@@ -1,0 +1,23 @@
+multi-label classification
+- output for each peice
+- 64 labels for each square
+
+black pawns
+input: image
+output: vector of labels
+eg: [0,5,7] --> linear index of the square that black pawn is on
+
+repeat process for p, n, b, r, q, k and for white P, N, ...
+6 for black and white = 12 outputs
+
+so either have a neural network with 12 outputs each outputing a vector of labels
+or have 12 networks? each with a vector output
+
+we need to have each network setup? all 12 pieces maybe? no because net independent
+CEHCK ORDER? of black and white label vs peice and shiet - shouylnt matter, consitency does
+simplify -- batchnorm - needed? get a simple model going
+GOAL: 2 samples: 100% accuracry on both w/b p leggo
+bathc size, loss and stuf -- change and test
+
+1 samples works
+2 samples doenst, 1/3 and 2/3 accuracy --> labels are wonky, has to be

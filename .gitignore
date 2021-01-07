@@ -1,0 +1,4 @@
+.idea
+venv/
+*.csv
+*.h5py
