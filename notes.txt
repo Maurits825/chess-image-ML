@@ -19,5 +19,6 @@ simplify -- batchnorm - needed? get a simple model going
 GOAL: 2 samples: 100% accuracry on both w/b p leggo
 bathc size, loss and stuf -- change and test
 
-1 samples works
-2 samples doenst, 1/3 and 2/3 accuracy --> labels are wonky, has to be
+binary accuracy the way to go?
+is is overfitting pog, even at 1k samples i think
+TODO: add drops out, test, try regu, test, then actually have a set to evaluate  the model on
