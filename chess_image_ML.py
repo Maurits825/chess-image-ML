@@ -88,47 +88,22 @@ def relu_advanced(x):
 
 # ref: https://towardsdatascience.com/building-a-multi-output-convolutional-neural-network-with-keras-ed24c7bc1178
 def make_default_hidden_layers(inputs):
-    """
-    Used to generate a default set of hidden layers. The structure used in this network is defined as:
-
-    Conv2D -> BatchNormalization -> Pooling -> Dropout
-    """
-    x = Conv2D(128, (3, 3), padding="same")(inputs)
+    x = Conv2D(32, (3, 3), padding="same")(inputs)
     x = Activation("relu")(x)
     x = LeakyReLU(alpha=0.1)(x)
     #x = BatchNormalization(axis=-1)(x)
     x = MaxPooling2D(pool_size=(3, 3))(x)
-    x = Dropout(0.4)(x)
-
-    x = Conv2D(256, (3, 3), padding="same")(x)
-    x = Activation("relu")(x)
-    x = LeakyReLU(alpha=0.1)(x)
-    #x = BatchNormalization(axis=-1)(x)
-    x = MaxPooling2D(pool_size=(2, 2))(x)
-    x = Dropout(0.4)(x)
-
-    x = Conv2D(256, (3, 3), padding="same")(x)
-    x = Activation("relu")(x)
-    x = LeakyReLU(alpha=0.1)(x)
-    #x = BatchNormalization(axis=-1)(x)
-    x = MaxPooling2D(pool_size=(2, 2))(x)
-    x = Dropout(0.4)(x)
-
+    x = Dropout(0.5)(x)
     return x
 
 
 def build_generic_branch(inputs, num_classes, name):
-    """
-    Used to build the race branch of our face recognition network.
-    This branch is composed of three Conv -> BN -> Pool -> Dropout blocks,
-    followed by the Dense output layer.
-    """
     x = make_default_hidden_layers(inputs)
     x = Flatten()(x)
     x = Dense(128)(x)
     x = Activation("relu")(x)
     x = LeakyReLU(alpha=0.1)(x)
-    x = Dropout(0.4)(x)
+    x = Dropout(0.5)(x)
 
     x = Dense(num_classes)(x)
     x = Activation("sigmoid", name=name)(x) #sigmoid is better for multi-label classification?
@@ -149,12 +124,11 @@ def assemble_full_model(input_shape, num_classes):
 
 def train_model(model, train_x, train_y):
     init_lr = 1e-4
-    epochs = 20
+    epochs = 50
     batch_size = 16
 
     #opt = Adam()
     opt = Adam(lr=init_lr, decay=init_lr / epochs) # TODO
-    #loss has to be a regression loss?
     #TODO names
     model.compile(optimizer=opt, loss={
                   'white_pawn': 'binary_crossentropy',

@@ -22,3 +22,17 @@ bathc size, loss and stuf -- change and test
 binary accuracy the way to go?
 is is overfitting pog, even at 1k samples i think
 TODO: add drops out, test, try regu, test, then actually have a set to evaluate  the model on
+
+validation accurcary is a straight line? -- constant
+validation is stagnent, that  mean overfitting right?
+
+maybe need to rethink output format? have 1s weight more? its just geussing 0 for everything
+
+REWORK:
+- detect board in picture, crop and maybe transform image to a square of board -- assume in middle
+
+- divide pic in 64 sub pictures
+- detect what piece is on each picture
+- can do a cnn with:
+	- 12 classes for b/w pieces
+	- 6 classes for piece and 2 classes for color
