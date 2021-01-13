@@ -2,3 +2,4 @@
 venv/
 *.csv
 *.h5py
+*.jpg

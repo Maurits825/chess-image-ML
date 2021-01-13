@@ -26,6 +26,11 @@ def load_images(file_names, img_width, img_height, total_samples, shuffle=True):
 
 def load_image(file_name, img_width, img_height):
     image_full = Image.open(file_name)
+    w, h = image_full.size
+
+    if w != img_width or h != img_height:
+        image_full = image_full.resize((img_width, img_height))
+
     image_grayscale = image_full.convert('L')
     image_np = np.asarray(image_grayscale)
     return image_np.reshape(1, img_height, img_width, 1).astype('float32') / 255.

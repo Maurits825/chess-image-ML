@@ -131,11 +131,16 @@ class ChessPieceCNN:
 
     def operate(self, total_samples, epochs, init_lr, batch_size):
         self.training_data, labels = image_loader.load_images(self.file_names, self.input_shape[1], self.input_shape[0], total_samples)
-        visualize_data.display_training_data(self.training_data, [0, 1])
+        #visualize_data.display_training_data(self.training_data, [0, 1])
 
         mlb = MultiLabelBinarizer()
         labels_binary = mlb.fit_transform(labels)
         print(mlb.classes_)
+
+        # save the multi-label binarizer to disk
+        f = open('mlb.pickle', "wb")
+        f.write(pickle.dumps(mlb))
+        f.close()
 
         # initialize the model using a sigmoid activation as the final layer
         self.model = self.build_neural_network2(classes=len(mlb.classes_), final_act="sigmoid")
@@ -145,11 +150,16 @@ class ChessPieceCNN:
                                         total_samples=total_samples, epochs=epochs,
                                         init_lr=init_lr, batch_size=batch_size)
 
-    def predict(self, model, data):
-        predicted_classes = model.predict(data[0].reshape(1, 100, 100, 1))
+        visualize_data.display_training_results(self.train_network, 'binary')
+
+    def predict_png(self, file_name):
+        np_data = image_loader.load_image(file_name, self.input_shape[1], self.input_shape[0])
+        predicted_classes = self.model.predict(np_data)
         print(np.around(predicted_classes, 2))
 
 
 IMG_DIR = r"A:\repo\chess-sim\Chess Simulation\Images"
 chessPieceCNN = ChessPieceCNN(IMG_DIR, 100, 100, 1)
 chessPieceCNN.operate(total_samples=500, epochs=20, init_lr=1e-3, batch_size=1)
+chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\black_knight_67.png")
+chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\white_pawn_69.png")
