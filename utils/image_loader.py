@@ -6,7 +6,9 @@ import random
 
 def load_images(file_names, img_width, img_height, total_samples, shuffle=True):
     total_images = len(file_names)
-    if total_samples > total_images:
+    if total_samples == -1:
+        total_samples = total_images
+    elif total_samples > total_images:
         raise ValueError
 
     if shuffle:
@@ -17,7 +19,8 @@ def load_images(file_names, img_width, img_height, total_samples, shuffle=True):
     for idx, img in enumerate(file_names):
         if idx >= total_samples:
             break
-
+        if idx % 1000 == 0:
+            print("Loading images: " + str(idx) + "/" + str(total_samples))
         image_data[idx] = load_image(img, img_width, img_height)
         labels.append(get_label(img))
 

@@ -103,7 +103,7 @@ class ChessPieceCNN:
 
         return model
 
-    def train(self, model, data, labels, total_samples, epochs, init_lr, batch_size):
+    def train(self, model, data, labels, epochs, init_lr, batch_size):
         (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.2, random_state=42)
 
         # construct the image generator for data augmentation TODO maybe needed or not?
@@ -117,7 +117,6 @@ class ChessPieceCNN:
         model.summary()
 
         # train the network
-        # TODO removed steps_per_epoch=len(trainX) // batch_size this is default i think, with aug.flow, data is inf? so have to keep it
         #H = model.fit(trainX, trainY, validation_data=(testX, testY), epochs=epochs, verbose=1, batch_size=batch_size)
         H = model.fit(
             x=aug.flow(trainX, trainY, batch_size=batch_size),
@@ -146,8 +145,7 @@ class ChessPieceCNN:
         self.model = self.build_neural_network2(classes=len(mlb.classes_), final_act="sigmoid")
 
         # train model
-        self.train_network = self.train(self.model, self.training_data, labels_binary,
-                                        total_samples=total_samples, epochs=epochs,
+        self.train_network = self.train(self.model, self.training_data, labels_binary, epochs=epochs,
                                         init_lr=init_lr, batch_size=batch_size)
 
         visualize_data.display_training_results(self.train_network, 'binary')
@@ -160,6 +158,6 @@ class ChessPieceCNN:
 
 IMG_DIR = r"A:\repo\chess-sim\Chess Simulation\Images"
 chessPieceCNN = ChessPieceCNN(IMG_DIR, 100, 100, 1)
-chessPieceCNN.operate(total_samples=500, epochs=20, init_lr=1e-3, batch_size=1)
+chessPieceCNN.operate(total_samples=-1, epochs=20, init_lr=1e-3, batch_size=32)
 chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\black_knight_67.png")
 chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\white_pawn_69.png")
