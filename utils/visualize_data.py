@@ -14,9 +14,9 @@ def display_training_data(data, sample_index):
     plt.show()
 
 
-def display_training_results(train):
-    accuracy = train.history['accuracy']
-    val_accuracy = train.history['val_accuracy']
+def display_training_results(train, metric):
+    accuracy = train.history[metric + '_accuracy']
+    val_accuracy = train.history['val_' + metric + '_accuracy']
     loss = train.history['loss']
     val_loss = train.history['val_loss']
     epochs = range(len(accuracy))
