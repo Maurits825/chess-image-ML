@@ -90,15 +90,23 @@ class ChessPieceCNN:
         model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=self.input_shape, padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D((2, 2), padding='same'))
+        model.add(Dropout(0.25))
+
         model.add(Conv2D(64, (3, 3), activation='relu', padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+        model.add(Dropout(0.25))
+
         model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
+        model.add(Dropout(0.4))
+
         model.add(Flatten())
         model.add(Dense(128, activation='relu'))
         model.add(LeakyReLU(alpha=0.1))
+        model.add(Dropout(0.3))
+
         model.add(Dense(classes, activation=final_act))
 
         return model
@@ -107,7 +115,8 @@ class ChessPieceCNN:
         (trainX, testX, trainY, testY) = train_test_split(data, labels, test_size=0.2, random_state=42)
 
         # construct the image generator for data augmentation TODO maybe needed or not?
-        aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1, height_shift_range=0.1, shear_range=0.2, zoom_range=0.2, horizontal_flip=True, fill_mode="nearest")
+        aug = ImageDataGenerator(rotation_range=25, width_shift_range=0.1, height_shift_range=0.1, shear_range=0.2,
+                                 zoom_range=0.2, horizontal_flip=True, fill_mode="nearest")
 
         # initialize the optimizer (SGD is sufficient) TODO SGD?
         opt = Adam(lr=init_lr, decay=init_lr / epochs)
@@ -158,6 +167,6 @@ class ChessPieceCNN:
 
 IMG_DIR = r"A:\repo\chess-sim\Chess Simulation\Images"
 chessPieceCNN = ChessPieceCNN(IMG_DIR, 100, 100, 1)
-chessPieceCNN.operate(total_samples=-1, epochs=20, init_lr=1e-3, batch_size=32)
+chessPieceCNN.operate(total_samples=-1, epochs=20, init_lr=1e-4, batch_size=16)
 chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\black_knight_67.png")
 chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\white_pawn_69.png")

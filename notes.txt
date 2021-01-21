@@ -38,8 +38,6 @@ REWORK:
 	- 6 classes for piece and 2 classes for color
 
 seems to work well
+
 TODO:
-- make function to test a complete of unseens images, plot and label with % confidence
-- add a predict_from_jpg function? to test on real pictures
-- get more data and test!
-- 
+- drop the upside down pics, test again, we can rotate bottom half of chess board
