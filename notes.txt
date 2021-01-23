@@ -40,4 +40,6 @@ REWORK:
 seems to work well
 
 TODO:
-- drop the upside down pics, test again, we can rotate bottom half of chess board
+- 10k+ pics: use data flow thing from keras
+- last commits is good accuracy, not overfitting i think because validation accrucary also increase
+

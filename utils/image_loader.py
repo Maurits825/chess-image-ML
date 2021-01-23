@@ -41,4 +41,7 @@ def load_image(file_name, img_width, img_height):
 
 def get_label(file_name):
     label = file_name.split(os.path.sep)[-1].split("_")
-    return label[0:2]
+    if len(label) == 3:
+        return label[0] + "_" + label[1]
+    else:
+        return label[0]

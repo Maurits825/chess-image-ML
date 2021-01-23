@@ -49,10 +49,10 @@ class ClassifyChessPiece:
 
 image_dir = r"test images/"
 images = glob.glob(image_dir + "/*")
-classifyChessPiece = ClassifyChessPiece("chess_piece_cnn.h5py", "mlb.pickle")
+classifyChessPiece = ClassifyChessPiece("chess_piece_cnn.h5py", "lb.pickle")
 classifyChessPiece.load_model_and_label()
 
 for img in images:
-    classifyChessPiece.classify_chess_piece(img, 100, 100)
+    classifyChessPiece.classify_chess_piece(img, 150, 150)
 
 #TODO put consol cmds, import click from AFKScape
