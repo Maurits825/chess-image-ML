@@ -90,22 +90,22 @@ class ChessPieceCNN:
         model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=self.input_shape, padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D((2, 2), padding='same'))
-        #model.add(Dropout(0.25))
+        model.add(Dropout(0.25))
 
         model.add(Conv2D(64, (3, 3), activation='relu', padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-        #model.add(Dropout(0.25))
+        model.add(Dropout(0.25))
 
         model.add(Conv2D(128, (3, 3), activation='relu', padding='same'))
         model.add(LeakyReLU(alpha=0.1))
         model.add(MaxPooling2D(pool_size=(2, 2), padding='same'))
-        #model.add(Dropout(0.4))
+        model.add(Dropout(0.4))
 
         model.add(Flatten())
         model.add(Dense(128, activation='relu'))
         model.add(LeakyReLU(alpha=0.1))
-        #model.add(Dropout(0.3))
+        model.add(Dropout(0.3))
 
         model.add(Dense(classes, activation=final_act))
 
@@ -168,9 +168,14 @@ class ChessPieceCNN:
         print(np.around(predicted_classes, 2))
 
 
-IMG_DIR = r"A:\repo\chess-sim\Chess Simulation\Images"
-IMG_SIZE = 150
-chessPieceCNN = ChessPieceCNN(IMG_DIR, IMG_SIZE, IMG_SIZE, 1)
-chessPieceCNN.operate(total_samples=-1, epochs=20, init_lr=1e-3, batch_size=16)
-chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\black_knight_67.png")
-chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\white_pawn_69.png")
+def main():
+    IMG_DIR = r"A:\repo\chess-sim\Chess Simulation\Images"
+    IMG_SIZE = 150
+    chessPieceCNN = ChessPieceCNN(IMG_DIR, IMG_SIZE, IMG_SIZE, 1)
+    chessPieceCNN.operate(total_samples=-1, epochs=60, init_lr=1e-3, batch_size=16)
+    chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\black_knight_67.png")
+    chessPieceCNN.predict_png(r"A:\repo\chess-sim\Chess Simulation\Images\white_pawn_69.png")
+
+
+if __name__ == '__main__':
+    main()

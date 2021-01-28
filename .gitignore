@@ -3,3 +3,5 @@ venv/
 *.csv
 *.h5py
 *.jpg
+*.pyc
+*.png

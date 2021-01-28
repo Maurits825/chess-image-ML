@@ -38,7 +38,7 @@ class ClassifyChessPiece:
             # build the label and draw the label on the image
             label = "{}: {:.2f}%".format(self.label.classes_[j], proba[j] * 100)
             cv2.putText(output, label, (10, (i * 30) + 25),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
         # show the probabilities for each of the individual labels
         for (label, p) in zip(self.label.classes_, proba):
             print("{}: {:.2f}%".format(label, p * 100))

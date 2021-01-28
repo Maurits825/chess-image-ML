@@ -1,45 +1,14 @@
-multi-label classification
-- output for each peice
-- 64 labels for each square
-
-black pawns
-input: image
-output: vector of labels
-eg: [0,5,7] --> linear index of the square that black pawn is on
-
-repeat process for p, n, b, r, q, k and for white P, N, ...
-6 for black and white = 12 outputs
-
-so either have a neural network with 12 outputs each outputing a vector of labels
-or have 12 networks? each with a vector output
-
-we need to have each network setup? all 12 pieces maybe? no because net independent
-CEHCK ORDER? of black and white label vs peice and shiet - shouylnt matter, consitency does
-simplify -- batchnorm - needed? get a simple model going
-GOAL: 2 samples: 100% accuracry on both w/b p leggo
-bathc size, loss and stuf -- change and test
-
-binary accuracy the way to go?
-is is overfitting pog, even at 1k samples i think
-TODO: add drops out, test, try regu, test, then actually have a set to evaluate  the model on
-
-validation accurcary is a straight line? -- constant
-validation is stagnent, that  mean overfitting right?
-
-maybe need to rethink output format? have 1s weight more? its just geussing 0 for everything
-
-REWORK:
-- detect board in picture, crop and maybe transform image to a square of board -- assume in middle
-
-- divide pic in 64 sub pictures
-- detect what piece is on each picture
-- can do a cnn with:
-	- 12 classes for b/w pieces
-	- 6 classes for piece and 2 classes for color
-
-seems to work well
-
 TODO:
 - 10k+ pics: use data flow thing from keras
 - last commits is good accuracy, not overfitting i think because validation accrucary also increase
+
+- to commit: added dropouts, 80% accuracy!
+
+data set:
+the lookat function doesnt add images with perspective wrap
+dont have lookat func -- perspective wrap is there
+problem:
+	- only like 20% of img is actually piece, inifficient but works for now
+	- upside down pieces now, could leave in for now?
+	- need to add random rotation
 
